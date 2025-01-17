@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Inter", sans-serif;
+  src: url(./font/static/Inter-Bold.ttf);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Inter", sans-serif;
+  src: url(./font/static/Inter-Regular.ttf);
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Inter", sans-serif;
+  src: url(./font/static/Inter-Medium.ttf);
+  font-weight: 500;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-black font-inter;
+  }
+}
+
+@layer components {
+  .loader {
+    animation: loader 1s infinite;
+  }
+
+  .loader::before {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 1;
+    }
+
+    50% {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes loader {
+    0% {
+      transform: scale(0.5);
+      opacity: 1;
+    }
+
+    50% {
+      transform: scale(1);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(0.5);
+      opacity: 1;
+    }
+  }
+}

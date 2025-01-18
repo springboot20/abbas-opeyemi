@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-2 xl:px-0 relative">
+    <section id="contact" className="px-2 xl:px-0 relative mt-4">
       <div className="max-w-3xl mx-auto border border-gray-600 p-4 rounded-xl">
         <div className="flex flex-col gap-3 sm:gap-0 sm:flex-row sm:items-center sm:justify-between">
           <div className="">

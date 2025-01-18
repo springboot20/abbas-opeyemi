@@ -43,12 +43,9 @@ export const Navigation: React.FC = () => {
     window.addEventListener("scroll", () => {
       setIsScrolled(window.scrollY > 0);
     });
-    console.log(isScrolled);
 
     return window.removeEventListener("scroll", () => {
       setIsScrolled(false);
-
-      console.log(isScrolled);
     });
   }, [isScrolled]);
 
@@ -134,7 +131,7 @@ export const Navigation: React.FC = () => {
         <div className="fixed inset-0 overflow-hidden z-20">
           <div className="absolute inset-0 overflow-hidden">
             <div className="fixed inset-y-0 left-0 flex max-w-full">
-              <Dialog.Panel className="flex h-full flex-col bg-black shadow-xl border-r border-white/40 w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700">
+              <Dialog.Panel className="flex h-full flex-col bg-black shadow-xl border-r border-gray-600 w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700">
                 <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                   <div className="flex items-start justify-between">
                     <Dialog.Title className="text-xl font-bold capitalize bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">
@@ -151,7 +148,7 @@ export const Navigation: React.FC = () => {
                     </div>
                   </div>
                   <div className="mt-6 flow-root">
-                    <div className="divide-y divide-blue-100 space-y-2">
+                    <div className="divide-y divide-gray-600 space-y-2">
                       <motion.ul
                         variants={listContainer}
                         initial="hidden"

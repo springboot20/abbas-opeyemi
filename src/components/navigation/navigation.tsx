@@ -1,8 +1,9 @@
 import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dialog, Disclosure } from "@headlessui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { classNames } from "../../utils";
 
 const routes = [
   {
@@ -35,15 +36,34 @@ const handleScroll = (id: string) => {
 
 export const Navigation: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      setIsScrolled(window.scrollY > 0);
+    });
+    console.log(isScrolled);
+
+    return window.removeEventListener("scroll", () => {
+      setIsScrolled(false);
+
+      console.log(isScrolled);
+    });
+  }, [isScrolled]);
 
   return (
     <Disclosure
       as="header"
-      className="z-20 fixed inset-x-0 top-0 flex items-center justify-center h-20"
+      className={classNames(
+        "z-20 fixed inset-x-0 flex items-center justify-center h-20 transition-all",
+        isScrolled ? "sticky top-4" : "relative top-0 "
+      )}
     >
-      <nav className="mx-auto flex flex-1 flex-shrink-0 items-center justify-between max-w-2xl border-gray-600 border backdrop-blur rounded-full p-3 gap-8">
-        <div className="">
-
+      <nav className="mx-auto flex flex-1 flex-shrink-0 items-center justify-between max-w-5xl border-gray-600 border backdrop-blur rounded-full p-3 gap-8">
+        <div className="flex flex-1 justify-center items-center lg:justify-start">
+          <h1 className="text-xl font-bold capitalize bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">
+            yunus abbas opeyemi
+          </h1>
         </div>
 
         <div className="hidden lg:flex items-center gap-x-10">

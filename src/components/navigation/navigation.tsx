@@ -12,16 +12,16 @@ const routes = [
     to: "#about",
   },
   {
-    title: "contact",
-    to: "#contact",
+    title: "skills",
+    to: "#skills",
   },
   {
     title: "projects",
     to: "#projects",
   },
   {
-    title: "skills",
-    to: "#skills",
+    title: "contact",
+    to: "#contact",
   },
 ];
 
@@ -92,18 +92,26 @@ export const Navigation: React.FC = () => {
           </h1>
         </div>
 
-        <div className="hidden lg:flex items-center gap-x-10">
-          {routes.map((_route) => (
-            <Link
-              to={_route.to}
+        <motion.ul
+          variants={listContainer}
+          initial="hidden"
+          animate="visible"
+          className="hidden lg:flex items-center gap-x-10"
+        >
+          {routes.map((_route, index) => (
+            <motion.li
               key={_route.title}
+              variants={{ ...listItem(index) }}
+              initial="hidden"
+              animate="visible"
               onClick={() => handleScroll(_route.to.split("#")[1])}
-              className="text-gray-100 font-medium capitalize text-lg"
             >
-              {_route.title}
-            </Link>
+              <Link to={_route.to} className="text-gray-100 font-medium capitalize text-lg">
+                {_route.title}
+              </Link>
+            </motion.li>
           ))}
-        </div>
+        </motion.ul>
 
         <div className="lg:hidden">
           <button

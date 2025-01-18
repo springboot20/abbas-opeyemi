@@ -4,6 +4,7 @@ import { Dialog, Disclosure } from "@headlessui/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { classNames } from "../../utils";
+import { motion } from "framer-motion";
 
 const routes = [
   {
@@ -51,6 +52,34 @@ export const Navigation: React.FC = () => {
     });
   }, [isScrolled]);
 
+  const listContainer = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const listItem = (index: number) => {
+    return {
+      hidden: {
+        opacity: 0,
+        y: 10,
+      },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          delay: 0.35 * index,
+        },
+      },
+    };
+  };
+
   return (
     <Disclosure
       as="header"
@@ -59,7 +88,7 @@ export const Navigation: React.FC = () => {
         isScrolled ? "sticky top-4" : "relative top-0 "
       )}
     >
-      <nav className="mx-auto flex flex-1 flex-shrink-0 items-center justify-between max-w-5xl border-gray-600 border backdrop-blur rounded-full p-3 gap-8">
+      <nav className="mx-auto flex flex-1 flex-shrink-0 items-center justify-between max-w-4xl border-gray-600 border backdrop-blur rounded-full p-3 gap-8">
         <div className="flex flex-1 justify-center items-center lg:justify-start">
           <h1 className="text-xl font-bold capitalize bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">
             yunus abbas opeyemi
@@ -108,8 +137,8 @@ export const Navigation: React.FC = () => {
               <Dialog.Panel className="flex h-full flex-col bg-black shadow-xl border-r border-white/40 w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700">
                 <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
                   <div className="flex items-start justify-between">
-                    <Dialog.Title className="capitalize text-lg font-medium text-gray-100">
-                      yunus abbas
+                    <Dialog.Title className="text-xl font-bold capitalize bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">
+                      yunus abbas opeyemi
                     </Dialog.Title>
                     <div className="ml-3 flex h-7 items-center">
                       <button
@@ -123,21 +152,32 @@ export const Navigation: React.FC = () => {
                   </div>
                   <div className="mt-6 flow-root">
                     <div className="divide-y divide-blue-100 space-y-2">
-                      <div className="flex flex-col gap-y-4">
-                        {routes.map((_route) => (
-                          <Link
-                            to={_route.to}
+                      <motion.ul
+                        variants={listContainer}
+                        initial="hidden"
+                        animate="visible"
+                        className="flex flex-col gap-y-4 sm:gap-y-6"
+                      >
+                        {routes.map((_route, index) => (
+                          <motion.li
                             key={_route.title}
+                            initial="hidden"
+                            animate="visible"
+                            variants={{ ...listItem(index) }}
                             onClick={() => {
                               handleScroll(_route.to.split("#")[1]);
                               setOpen(false);
                             }}
-                            className="text-gray-100 font-medium capitalize text-sm rounded px-3 py-1.5 hover:text-gray-100 hover:bg-white/20"
                           >
-                            {_route.title}
-                          </Link>
+                            <Link
+                              to={_route.to}
+                              className="text-gray-100 font-medium capitalize text-sm rounded px-3 py-1.5 hover:text-gray-100 hover:bg-white/20"
+                            >
+                              {_route.title}
+                            </Link>
+                          </motion.li>
                         ))}
-                      </div>
+                      </motion.ul>
                       <Link to="mailto:abbasopeyemi148@gmail.com" className="block py-3">
                         <button className="text-base font-normal text-white px-4 w-full py-1.5 flex ring-1 ring-gray-600 rounded items-center">
                           <span className="h-6 w-6 inline-block rounded-full relative before:h-3 before:w-3 before:bg-green-500 before:rounded-full bg-green-600 loader"></span>

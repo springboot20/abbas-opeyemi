@@ -17,7 +17,7 @@ export default function Skills() {
     <section className="h-screen" id="skills">
       <div className="max-w-7xl mx-auto px-2 xl:px-0 h-full grid sm:place-content-center">
         <header className="text-center mb-5">
-          <h3 className="text-3xl capitalize font-medium text-gray-100">skills</h3>
+          <h3 className="text-3xl capitalize font-medium bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">skills</h3>
           <p className="text-base font-normal text-gray-500">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita, natus!
           </p>

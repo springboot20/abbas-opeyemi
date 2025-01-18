@@ -7,7 +7,7 @@ export default function Projects() {
       <section id="projects">
         <div className="max-w-7xl mx-auto px-2">
           <header className="text-center mb-5">
-            <h3 className="text-3xl capitalize font-medium text-gray-100">projects</h3>
+            <h3 className="text-3xl capitalize font-medium bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">projects</h3>
             <p className="text-base font-normal text-gray-500 mt-1">
               A testament to <span className="text-white">creativity</span> and{" "}
               <span className="text-white">technical prowess </span>, these showcase{" "}

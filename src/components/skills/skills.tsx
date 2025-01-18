@@ -1,6 +1,18 @@
 import { skills } from "../../data/skills";
+import { motion } from "framer-motion";
 
 export default function Skills() {
+  const skillVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
   return (
     <section className="h-screen" id="skills">
       <div className="max-w-7xl mx-auto px-2 xl:px-0 h-full grid sm:place-content-center">
@@ -12,12 +24,20 @@ export default function Skills() {
         </header>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-10 lg:gap-20 w-full">
-          {skills.map((skill) => {
+          {skills.map((skill, index) => {
             return (
-              <div className="flex flex-col items-center" key={skill.name}>
+              <motion.div
+                className="flex flex-col items-center"
+                variants={skillVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ amount: 0.4, once: false }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                key={skill.name}
+              >
                 {skill.logo}
                 <span className="text-sm font-medium text-gray-100">{skill.name}</span>
-              </div>
+              </motion.div>
             );
           })}
         </div>

@@ -19,8 +19,8 @@ const routes = [
     to: "#projects",
   },
   {
-    title: "resume",
-    to: "#resume",
+    title: "skills",
+    to: "#skills",
   },
 ];
 

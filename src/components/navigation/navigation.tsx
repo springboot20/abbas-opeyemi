@@ -82,7 +82,7 @@ export const Navigation: React.FC = () => {
       as="header"
       className={classNames(
         "z-20 fixed inset-x-0 flex items-center justify-center h-20 transition-all",
-        isScrolled ? "sticky top-4" : "relative top-0 "
+        isScrolled ? "sticky top-2" : "relative top-0 "
       )}
     >
       <nav className="mx-auto flex flex-1 flex-shrink-0 items-center justify-between max-w-4xl border-gray-600 border backdrop-blur rounded-full p-3 gap-8">

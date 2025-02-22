@@ -5,7 +5,8 @@
     "github-url": "https://github.com/springboot20/social-dashboard-with-theme",
     "project-title": "Social dashboard with Theme",
     "alt": "Social dashboard with Theme",
-    "project-description": ""
+    "project-description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil blanditiis hic molestias totam architecto! Id numquam cupiditate possimus commodi, eveniet reiciendis amet adipisci dignissimos voluptas fugit totam cumque laboriosam, ipsam architecto at harum consequatur, eos expedita quibusdam ab ipsum veritatis aliquid. Numquam recusandae, distinctio animi aliquid in nisi doloribus totam odit maxime possimus quasi excepturi ipsam consectetur vero qui voluptas, sapiente odio corrupti, aut beatae. Culpa, dignissimos rem hic incidunt eos voluptate excepturi obcaecati aliquid sed dolore facere et itaque dolor voluptates reiciendis sint doloribus iste quis quia in accusantium repellendus error cupiditate praesentium. Pariatur at qui quidem maxime eveniet!",
+    "tech-stack": ["ReactJs", "Tailwind"]
   },
   {
     "image": "./assets/flip-game.jpg",
@@ -13,7 +14,8 @@
     "github-url": "https://github.com/springboot20/Flip-game",
     "project-title": "Flip Game",
     "alt": "Flip Game",
-    "project-description": ""
+    "project-description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil blanditiis hic molestias totam architecto! Id numquam cupiditate possimus commodi, eveniet reiciendis amet adipisci dignissimos voluptas fugit totam cumque laboriosam, ipsam architecto at harum consequatur, eos expedita quibusdam ab ipsum veritatis aliquid. Numquam recusandae, distinctio animi aliquid in nisi doloribus totam odit maxime possimus quasi excepturi ipsam consectetur vero qui voluptas, sapiente odio corrupti, aut beatae. Culpa, dignissimos rem hic incidunt eos voluptate excepturi obcaecati aliquid sed dolore facere et itaque dolor voluptates reiciendis sint doloribus iste quis quia in accusantium repellendus error cupiditate praesentium. Pariatur at qui quidem maxime eveniet!",
+    "tech-stack": ["Html5", "JavaScript", "JavaScript"]
   },
   {
     "image": "./assets/weight-converter.jpg",
@@ -21,7 +23,8 @@
     "github-url": "https://github.com/springboot20/Weigh-converter",
     "project-title": "Weight Converter",
     "alt": "Weight Converter",
-    "project-description": ""
+    "project-description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil blanditiis hic molestias totam architecto! Id numquam cupiditate possimus commodi, eveniet reiciendis amet adipisci dignissimos voluptas fugit totam cumque laboriosam, ipsam architecto at harum consequatur, eos expedita quibusdam ab ipsum veritatis aliquid. Numquam recusandae, distinctio animi aliquid in nisi doloribus totam odit maxime possimus quasi excepturi ipsam consectetur vero qui voluptas, sapiente odio corrupti, aut beatae. Culpa, dignissimos rem hic incidunt eos voluptate excepturi obcaecati aliquid sed dolore facere et itaque dolor voluptates reiciendis sint doloribus iste quis quia in accusantium repellendus error cupiditate praesentium. Pariatur at qui quidem maxime eveniet!",
+    "tech-stack": ["CSS", "Html5", "JavaScript"]
   },
   {
     "image": "./assets/bookmark-landing-page.jpg",
@@ -29,7 +32,8 @@
     "github-url": "https://github.com/springboot20/Weigh-converter",
     "project-title": "Bookmark Landing Page",
     "alt": "Bookmark Landing Page",
-    "project-description": ""
+    "project-description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil blanditiis hic molestias totam architecto! Id numquam cupiditate possimus commodi, eveniet reiciendis amet adipisci dignissimos voluptas fugit totam cumque laboriosam, ipsam architecto at harum consequatur, eos expedita quibusdam ab ipsum veritatis aliquid. Numquam recusandae, distinctio animi aliquid in nisi doloribus totam odit maxime possimus quasi excepturi ipsam consectetur vero qui voluptas, sapiente odio corrupti, aut beatae. Culpa, dignissimos rem hic incidunt eos voluptate excepturi obcaecati aliquid sed dolore facere et itaque dolor voluptates reiciendis sint doloribus iste quis quia in accusantium repellendus error cupiditate praesentium. Pariatur at qui quidem maxime eveniet!",
+    "tech-stack": ["ReactJs", "Tailwind"]
   },
   {
     "image": "./assets/rest-countries.jpg",
@@ -37,6 +41,7 @@
     "github-url": "https://vercel.com/springboot20/rest-countries",
     "project-title": "Rest Countries",
     "alt": "Rest Countries",
-    "project-description": ""
+    "project-description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil blanditiis hic molestias totam architecto! Id numquam cupiditate possimus commodi, eveniet reiciendis amet adipisci dignissimos voluptas fugit totam cumque laboriosam, ipsam architecto at harum consequatur, eos expedita quibusdam ab ipsum veritatis aliquid. Numquam recusandae, distinctio animi aliquid in nisi doloribus totam odit maxime possimus quasi excepturi ipsam consectetur vero qui voluptas, sapiente odio corrupti, aut beatae. Culpa, dignissimos rem hic incidunt eos voluptate excepturi obcaecati aliquid sed dolore facere et itaque dolor voluptates reiciendis sint doloribus iste quis quia in accusantium repellendus error cupiditate praesentium. Pariatur at qui quidem maxime eveniet!",
+    "tech-stack": ["ReactJs", "Tailwind"]
   }
 ]

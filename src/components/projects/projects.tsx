@@ -5,8 +5,37 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { teckstacks } from "../../data/techstacks";
+import { useEffect, useRef } from "react";
 
 export default function Projects() {
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      projectRefs.current.forEach((element) => {
+
+        console.log(element)
+
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+
+          if (rect.top < windowHeight * 0.2 || rect.bottom > windowHeight * 0.8) {
+            element.style.transform = `scale(0.8)`;
+          } else {
+            element.style.transform = `scale(1)`;
+          }
+          element.style.transition = `transform 0.3s ease`;
+        }
+      });
+    };
+
+    window.addEventListener("scoll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scoll", handleScroll);
+  }, []);
+
   return (
     <SlideIn direction="left">
       <section id="projects">
@@ -26,17 +55,19 @@ export default function Projects() {
           <div className="relative w-full max-w-full grid grid-cols-1 gap-5">
             {data.map((item, index) => (
               <div
+                id={`project-${index}`}
+                ref={(el) => (projectRefs.current[index] = el)}
                 style={{
                   top: `calc(96px + ${index * 40}px)`,
                   height: "auto",
                 }}
                 className="border border-gray-600 rounded-2xl w-full sticky p-4 bg-black/20 backdrop-blur-md"
-                key={index}
+                key={`project-${index}`}
               >
                 <header className="flex items-center justify-between">
-                  <h1 className="text-base font-medium text-gray-300">{`${((index + 1) % 10)
-                    .toString()
-                    .padStart(3, "00")} | ${item["project-title"]}`}</h1>
+                  <h1 className="text-base font-medium text-gray-300">{`${index + 1} | ${
+                    item["project-title"]
+                  }`}</h1>
 
                   <Link to={item["github-url"]}>
                     <svg

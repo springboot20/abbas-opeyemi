@@ -13,27 +13,37 @@ export default function Projects() {
   useEffect(() => {
     const handleScroll = () => {
       projectRefs.current.forEach((element) => {
-
-        console.log(element)
-
         if (element) {
           const rect = element.getBoundingClientRect();
           const windowHeight = window.innerHeight;
 
-          if (rect.top < windowHeight * 0.2 || rect.bottom > windowHeight * 0.8) {
-            element.style.transform = `scale(0.8)`;
-          } else {
-            element.style.transform = `scale(1)`;
-          }
-          element.style.transition = `transform 0.3s ease`;
+          // Calculate how far the element is from the center of the viewport
+          const distanceFromCenter = Math.abs(rect.top + rect.height / 2 - windowHeight / 2);
+
+          // Calculate a scale factor between 0.8 and 1.0 based on distance from center
+          // The closer to the center, the closer to 1.0
+          const maxDistance = windowHeight * 0.7;
+          const scaleFactor = 1 - (Math.min(distanceFromCenter, maxDistance) / maxDistance) * 0.2;
+
+          // Apply the scale transformation
+          element.style.transform = `scale(${scaleFactor})`;
+
+          // Apply some opacity change for additional effect
+          element.style.opacity = `${0.7 + scaleFactor * 0.3}`;
+
+          // Smooth transition for both transform and opacity
+          element.style.transition = "transform 0.3s ease, opacity 0.3s ease";
         }
       });
     };
 
-    window.addEventListener("scoll", handleScroll);
+    // Fix the typo: "scoll" -> "scroll"
+    window.addEventListener("scroll", handleScroll);
+
+    // Initial call to set the starting positions
     handleScroll();
 
-    return () => window.removeEventListener("scoll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (

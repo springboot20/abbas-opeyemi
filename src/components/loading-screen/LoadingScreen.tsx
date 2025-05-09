@@ -7,7 +7,7 @@ export default function LoadingScreen({ onLoadingComplete }: { onLoadingComplete
 
   // More controlled progress simulation that guarantees completion
   useEffect(() => {
-    let timer;
+    let timer = null;
 
     if (progress < 100) {
       // Increment by 1% every 50ms (takes ~5 seconds to complete)

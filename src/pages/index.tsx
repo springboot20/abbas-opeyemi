@@ -28,7 +28,7 @@ export const Pages = () => {
             </p>
             <div className='flex items-center gap-2'>
               <div className='pulse-dot' />
-              <span className='text-xs text-white/20 font-mono'>Lagos, Nigeria</span>
+              <span className='text-xs text-white/20 font-mono'>Oyo, Nigeria</span>
             </div>
           </motion.div>
         </div>

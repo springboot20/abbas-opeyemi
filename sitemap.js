@@ -12,36 +12,32 @@ const config = {
   routes: [
     {
       url: '/',
-      changefreq: 'weekly',
       priority: '1.0',
       lastmod: new Date().toISOString().split('T')[0],
     },
 
     {
       url: '/resume.pdf',
-      changefreq: 'monthly',
-      priority: '0.8',
+      priority: '1.0',
       lastmod: new Date().toISOString().split('T')[0],
     },
   ],
 };
 
 function generateSitemap() {
-  const urls = config.routes
-    .map(
-      (route) =>
-        `   <url> 
-               <loc>${config.baseUrl}${route.url}</loc>
-               <lastmod>${route.lastmod}</lastmod>
-               <changefreq>${route.changefreq}</changefreq>
-               <priority>${route.priority}</priority>
-             </url>`,
-    )
-    .join('');
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
-  return `<?xml version="1.0" encoding="UTF-8"?> <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        ${urls} 
-        </urlset>`;
+  config.routes.forEach((route) => {
+    xml += '  <url>\n';
+    xml += `    <loc>${config.baseUrl}${route.url}</loc>\n`;
+    xml += `    <lastmod>${route.lastmod}</lastmod>\n`;
+    xml += `    <priority>${route.priority}</priority>\n`;
+    xml += '  </url>\n';
+  });
+
+  xml += '</urlset>';
+  return xml;
 }
 
 function ensureDirectoryExists(filePath) {

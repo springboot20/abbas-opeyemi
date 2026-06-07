@@ -3,7 +3,7 @@ import { Navigation } from '../components/navigation/navigation';
 
 export default function Layout() {
   return (
-    <div className='relative min-h-screen bg-[#04040a]'>
+    <div className='relative min-h-screen bg-[#04040a] overflow-hidden lg:overflow-auto'>
       {/* Noise texture overlay */}
       <div className='noise-overlay' />
 

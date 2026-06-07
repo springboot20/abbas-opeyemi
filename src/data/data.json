@@ -1,56 +1,67 @@
 [
   {
-    "image": "./assets/ecommerce-shop.jpg",
-    "url": "https://cv-ecommerce-project.vercel.app/",
-    "github-url": "https://github.com/springboot20/cv-ecommerce-project",
-    "project-title": "E-commerce Online Shopping",
-    "alt": "E-commerce Online Shopping Platform",
-    "project-description": "A full-featured e-commerce platform that allows users to browse products, add items to cart, and complete purchases. The application includes user authentication, product filtering and search, user reviews, wishlist functionality, and a secure checkout process. The responsive design ensures optimal viewing across all device sizes, while the admin dashboard allows for inventory management and sales tracking.",
-    "tech-stack": ["React.Js", "Redux", "Tailwind CSS", "TypeScript", "Headless UI"]
+    "image": "./assets/dreamlink.jpg",
+    "url": "https://fit.dreamlink.com.ng/",
+    "github-url": "https://github.com/springboot20",
+    "project-title": "Dreamlink — Real Estate Platform",
+    "company": "Dreamlink",
+    "role": "Frontend Engineer",
+    "year": "2025 – Present",
+    "type": "professional",
+    "alt": "Dreamlink Real Estate Platform",
+    "project-description": "Contributed to a production-scale real estate platform serving property discovery, bookings, and customer engagement workflows. Built reusable WebSocket-powered messaging and notification systems, implemented multi-step onboarding flows with Formik and Yup, integrated Google OAuth and two-factor authentication, and optimized Redux Toolkit state management to reduce unnecessary re-renders and improve application responsiveness.",
+    "tech-stack": [
+      "Next.js",
+      "TypeScript",
+      "Redux Toolkit",
+      "RTK Query",
+      "Tailwind CSS",
+      "WebSocket",
+      "Formik",
+      "Yup"
+    ]
   },
   {
-    "image": "./assets/ecommerce-shop.jpg",
-    "url": "https://e-commerce-api-6wjr.onrender.com",
-    "github-url": "https://github.com/springboot20/e-commerce-api",
-    "project-title": "E-commerce RESTful API",
-    "alt": "E-commerce Backend API Service",
-    "project-description": "A comprehensive RESTful API service that powers the e-commerce platform. The API handles product management, user authentication and authorization, order processing, payment integration, and inventory control. It includes robust error handling, data validation, rate limiting, and comprehensive logging. The API documentation provides detailed endpoint descriptions, request/response examples, and testing capabilities for developers.",
-    "tech-stack": ["Node.js", "Express.Js", "MongoDB", "JWT", "Swagger", "JavaScript"]
+    "image": "./assets/dfosh.jpg",
+    "url": "https://dfosh-webapp.netlify.app",
+    "github-url": "https://github.com/springboot20",
+    "project-title": "DfOSH-CMI — Construction Safety Assessment Platform",
+    "company": "Alkaios",
+    "role": "Lead Frontend Engineer",
+    "year": "2026 – Present",
+    "type": "professional",
+    "alt": "DfOSH Construction Safety Assessment Tool",
+    "project-description": "Led frontend architecture and implementation of a safety assessment platform for construction projects. Built custom SVG analytics visualizations without charting libraries, implemented IndexedDB-powered offline data persistence, resolved PDF export workflows, and delivered multilingual support using next-intl. Designed a scalable component architecture focused on performance, accessibility, and maintainability.",
+    "tech-stack": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Framer Motion",
+      "IndexedDB",
+      "next-intl",
+      "React Hook Form"
+    ]
   },
   {
-    "image": "./assets/event-booking.jpg",
-    "url": "https://github.com/springboot20/event-booking",
-    "github-url": "https://github.com/springboot20/event-booking",
-    "project-title": "Event Booking System",
-    "alt": "Event Booking and Management Platform",
-    "project-description": "An interactive event booking platform that allows users to discover, book, and manage event tickets. Features include event listings with detailed information, interactive seating maps, calendar integration, and QR code ticket generation. The system includes user profiles with booking history, event recommendations based on past attendance, and notification systems for upcoming events. For organizers, the platform offers tools for event creation, attendee management, and analytics.",
-    "tech-stack": ["React.Js", "TypeScript", "Headless UI", "Tailwind CSS"]
-  },
-  {
-    "image": "./assets/booking-api.jpg",
-    "url": "https://github.com/springboot20/event-booking-api",
-    "github-url": "https://github.com/springboot20/event-booking-api",
-    "project-title": "Event Booking API",
-    "alt": "Event Booking Backend API Service",
-    "project-description": "A scalable API backend that powers the event booking platform. This service handles event creation and management, seat reservation, ticket generation, user authentication, and payment processing. The API implements real-time updates using WebSockets for seat availability, supports multiple payment gateways, and provides analytics endpoints for event organizers. The well-documented API allows for easy integration with mobile applications and third-party services.",
-    "tech-stack": ["Node.js", "Express.Js", "TypeScript", "MongoDB", "Socket.io", "JWT"]
-  },
-  {
-    "image": "./assets/banking-webapp.jpg",
-    "url": "https://affiliate-dashboard-4sgw.vercel.app",
-    "github-url": "https://github.com/springboot20/affiliate-dashboard",
-    "project-title": "Banking Web Application",
-    "alt": "Secure Banking Web Application",
-    "project-description": "A secure banking web application that enables users to manage their finances online. The platform includes account overview, transaction history, fund transfers between accounts, bill payments, and scheduled transactions. Security features include two-factor authentication, session timeouts, and encrypted data transmission. The application also provides spending analytics with visual representations, budget planning tools, and financial goal tracking for users to monitor their financial health.",
-    "tech-stack": ["React.Js", "Redux", "Tailwind CSS", "TypeScript"]
-  },
-  {
-    "image": "./assets/banking-webapp.jpg",
-    "url": "https://affiliate-dashboard-4sgw.vercel.app",
-    "github-url": "https://github.com/springboot20/my-api",
-    "project-title": "Banking Restful API",
-    "alt": "Secure Banking Restful API",
-    "project-description": "A robust and secure RESTful API designed to support a banking web application. This API handles user authentication, account management, transaction processing, and bill payments. It includes features such as two-factor authentication, encrypted data storage, and role-based access control to ensure security. The API also provides endpoints for generating financial reports, managing scheduled transactions, and tracking user activity. Comprehensive documentation and testing ensure seamless integration with frontend applications.",
-    "tech-stack": ["Node.js", "Express", "MongoDB", "JWT", "JavaScript"]
+    "image": "./assets/chat-app.jpg",
+    "url": "https://codesuite-chatting-application.vercel.app/",
+    "github-url": "https://github.com/springboot20",
+    "project-title": "CodeSuite — Real-Time Messaging Platform",
+    "company": "Personal Project",
+    "role": "Full-Stack Developer",
+    "year": "2024 – 2025",
+    "type": "personal",
+    "alt": "CodeSuite Real-Time Chat Application",
+    "project-description": "Developed a full-stack real-time communication platform featuring instant messaging, file sharing, voice messages, email verification, persistent chat history, and optimistic UI updates. Implemented Socket.IO-powered communication channels and IndexedDB-based local persistence for improved reliability and seamless user experience across sessions.",
+    "tech-stack": [
+      "React",
+      "TypeScript",
+      "Redux Toolkit",
+      "RTK Query",
+      "Socket.IO",
+      "Node.js",
+      "Express.js",
+      "MongoDB"
+    ]
   }
 ]

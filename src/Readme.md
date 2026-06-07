@@ -94,3 +94,45 @@ export default function Example() {
       </Combobox>
     </div>
   )
+        {(['frontend', 'backend', 'tools'] as const).map((cat, catIdx) => {
+          const catSkills = skills.filter((s) => s.category === cat);
+          const config = categoryConfig[cat];
+
+          return (
+            <motion.div
+              key={cat}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: catIdx * 0.1 }}
+              className='mb-10'>
+              {/* Category label */}
+              <div className='flex items-center gap-3 mb-5'>
+                <span
+                  className={`text-xs font-mono font-medium px-3 py-1 rounded-full border ${config.color}`}>
+                  {config.label}
+                </span>
+                <div className='flex-1 h-px bg-white/5' />
+              </div>
+
+              {/* Pills */}
+              <motion.div
+                variants={containerVariants}
+                initial='hidden'
+                whileInView='visible'
+                viewport={{ once: true, amount: 0.2 }}
+                className='flex flex-wrap gap-3'>
+                {catSkills.map((skill) => (
+                  <motion.div key={skill.name} variants={itemVariants}>
+                    <div className='skill-pill group cursor-default'>
+                      <span className='w-5 h-5 flex items-center justify-center text-xs font-mono text-white/30 group-hover:text-violet-300 transition-colors rounded-md'>
+                        {skill.logo}
+                      </span>
+                      {skill.name}
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+          );
+        })}

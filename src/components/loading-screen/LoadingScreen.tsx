@@ -1,28 +1,17 @@
-// LoadingScreen.jsx
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function LoadingScreen({ onLoadingComplete }: { onLoadingComplete?: () => void }) {
   const [progress, setProgress] = useState(0);
 
-  // More controlled progress simulation that guarantees completion
   useEffect(() => {
-    let timer: any;
+    let timer: ReturnType<typeof setTimeout>;
 
     if (progress < 100) {
-      // Increment by 1% every 50ms (takes ~5 seconds to complete)
-      timer = setTimeout(() => {
-        setProgress((prev) => prev + 1);
-      }, 50);
+      timer = setTimeout(() => setProgress((p) => p + 1), 30);
     } else {
-      // When we reach 100%, trigger the callback after a small delay
-      const completeTimer = setTimeout(() => {
-        if (onLoadingComplete) {
-          onLoadingComplete();
-        }
-      }, 500); // Show 100% for half a second before transitioning
-
-      return () => clearTimeout(completeTimer);
+      const done = setTimeout(() => onLoadingComplete?.(), 400);
+      return () => clearTimeout(done);
     }
 
     return () => clearTimeout(timer);
@@ -30,67 +19,45 @@ export default function LoadingScreen({ onLoadingComplete }: { onLoadingComplete
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center"
-      initial={{ opacity: 1 }}
-      exit={{
-        opacity: 0,
-        transition: { duration: 0.8, ease: "easeInOut" },
-      }}
-    >
+      className='fixed inset-0 z-[100] bg-[#04040a] flex flex-col items-center justify-center gap-10'
+      exit={{ opacity: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }}>
+      {/* Logo mark */}
       <motion.div
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="mb-8"
-      >
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-500 to-red-500 bg-clip-text text-transparent">
-          Yunus Abbas Opeyemi
-        </h1>
-        <p className="text-gray-400 text-center mt-2">Portfolio</p>
+        className='flex flex-col items-center gap-3'>
+        <div className='w-14 h-14 rounded-2xl bg-violet-600/20 border border-violet-500/20 flex items-center justify-center'>
+          <span className='font-mono text-xl font-bold text-violet-400'>YA</span>
+        </div>
+        <div className='text-center'>
+          <p className='text-base font-semibold text-white/80'>Yunus Abbas Opeyemi</p>
+          <p className='text-xs font-mono text-white/25 tracking-wider uppercase mt-0.5'>
+            Frontend Developer
+          </p>
+        </div>
       </motion.div>
 
-      {/* Loading bar container */}
-      <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full bg-gradient-to-r from-indigo-500 to-red-500"
-          initial={{ width: "0%" }}
-          animate={{ width: `${progress}%` }}
-          transition={{ ease: "easeOut" }}
-        />
-      </div>
-
-      {/* Progress percentage */}
-      <p className="text-gray-400 mt-3">{Math.floor(progress)}%</p>
-
-      {/* Loading text with the dot animation */}
+      {/* Progress */}
       <motion.div
-        className="mt-8 text-gray-400 flex"
-        initial={{ opacity: 0.5 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-      >
-        <span>Loading</span>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, repeat: Infinity, repeatType: "loop", repeatDelay: 0.2 }}
-        >
-          .
-        </motion.span>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, repeat: Infinity, repeatType: "loop", repeatDelay: 0.4 }}
-        >
-          .
-        </motion.span>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, repeat: Infinity, repeatType: "loop", repeatDelay: 0.6 }}
-        >
-          .
-        </motion.span>
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.4 }}
+        className='flex flex-col items-center gap-3 w-48'>
+        {/* Bar track */}
+        <div className='w-full h-[2px] bg-white/6 rounded-full overflow-hidden'>
+          <motion.div
+            className='h-full loader-bar rounded-full'
+            initial={{ width: '0%' }}
+            animate={{ width: `${progress}%` }}
+            transition={{ ease: 'linear' }}
+          />
+        </div>
+
+        {/* Percentage */}
+        <span className='text-xs font-mono text-white/20 tabular-nums'>
+          {String(progress).padStart(3, '0')}%
+        </span>
       </motion.div>
     </motion.div>
   );

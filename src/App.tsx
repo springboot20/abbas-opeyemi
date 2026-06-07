@@ -8,16 +8,14 @@ import { useState } from "react";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  // This function will be called when the LoadingScreen reaches 100%
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-  };
-
   return (
     <>
       <AnimatePresence mode="wait">
         {isLoading && (
-          <LoadingScreen key="loading-screen" onLoadingComplete={handleLoadingComplete} />
+          <LoadingScreen
+            key="loading-screen"
+            onLoadingComplete={() => setIsLoading(false)}
+          />
         )}
       </AnimatePresence>
 

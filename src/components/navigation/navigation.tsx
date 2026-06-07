@@ -1,202 +1,195 @@
-import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Dialog, Disclosure } from "@headlessui/react";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { classNames } from "../../utils";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faClose } from '@fortawesome/free-solid-svg-icons';
 
 const routes = [
-  {
-    title: "about",
-    to: "#about",
-  },
-  {
-    title: "skills",
-    to: "#skills",
-  },
-  {
-    title: "projects",
-    to: "#projects",
-  },
-  {
-    title: "contact",
-    to: "#contact",
-  },
+  { title: 'about', to: '#hero' },
+  { title: 'skills', to: '#skills' },
+  { title: 'projects', to: '#projects' },
+  { title: 'contact', to: '#contact' },
 ];
 
-const handleScroll = (id: string) => {
-  const element = document.getElementById(id)!;
-
-  element.scrollIntoView({
-    behavior: "smooth",
-    inline: "nearest",
-    block: "start",
-  });
+const scrollTo = (id: string) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
 export const Navigation: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('hero');
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      setIsScrolled(window.scrollY > 0);
-    });
+    const handleScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-    return window.removeEventListener("scroll", () => {
-      setIsScrolled(false);
-    });
-  }, [isScrolled]);
-
-  const listContainer = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
-  const listItem = (index: number) => {
-    return {
-      hidden: {
-        opacity: 0,
-        y: 10,
-      },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          delay: 0.35 * index,
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    routes.forEach((r) => {
+      const el = document.getElementById(r.to.slice(1));
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActive(r.to.slice(1));
+          }
         },
-      },
-    };
-  };
+        {
+          rootMargin: '-40% 0px -40% 0px',
+          threshold: 0,
+        },
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   return (
-    <Disclosure
-      as="header"
-      className={classNames(
-        "z-20 fixed inset-x-0 flex items-center justify-center h-20 transition-all",
-        isScrolled ? "sticky top-2" : "relative top-0 "
-      )}
-    >
-      <nav className="mx-auto flex flex-1 flex-shrink-0 items-center justify-between max-w-4xl border-gray-600 border backdrop-blur rounded-full p-3 gap-8">
-        <div className="flex flex-1 justify-center items-center lg:justify-start">
-          <h1 className="text-xl font-bold capitalize bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">
-            yunus abbas opeyemi
-          </h1>
-        </div>
-
-        <motion.ul
-          variants={listContainer}
-          initial="hidden"
-          animate="visible"
-          className="hidden lg:flex items-center gap-x-10"
-        >
-          {routes.map((_route, index) => (
-            <motion.li
-              key={_route.title}
-              variants={{ ...listItem(index) }}
-              initial="hidden"
-              animate="visible"
-              onClick={() => handleScroll(_route.to.split("#")[1])}
-            >
-              <Link to={_route.to} className="text-gray-100 font-medium capitalize text-lg">
-                {_route.title}
-              </Link>
-            </motion.li>
-          ))}
-        </motion.ul>
-
-        <div className="lg:hidden">
+    <>
+      {/* Desktop nav */}
+      <motion.header
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className='fixed top-0 inset-x-0 z-50 flex justify-center pt-5 px-4'>
+        <nav
+          className={`nav-pill flex items-center justify-between gap-8 px-5 py-3 rounded-full transition-all duration-500 w-full max-w-5xl ${
+            scrolled ? 'shadow-[0_8px_40px_rgba(0,0,0,0.6)]' : ''
+          }`}>
+          {/* Logo */}
           <button
-            onClick={() => setOpen(true)}
-            type="button"
-            className="text-gray-100 flex items-center"
-          >
-            <span className="sr-only">Open menu</span>
-            <FontAwesomeIcon icon={faBars} className="h-5 w-5" aria-hidden={true} />
-          </button>
-        </div>
-
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="mailto:abbasopeyemi148@gmail.com">
-            <button className="text-sm  font-normal text-white px-4 py-1.5 flex ring-1 ring-gray-600 bg-white/20 rounded-full items-center">
-              <span className="h-6 w-6 inline-block rounded-full relative before:h-3 before:w-3 before:bg-green-500 before:rounded-full bg-green-600 loader"></span>
-              let's work
-            </button>
-          </Link>
-        </div>
-      </nav>
-
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <Dialog.Backdrop className="fixed inset-0 z-10 bg-black bg-opacity-75 transition-opacity duration-500 ease-in-out data-[closed]:opacity-0" />
-        <div className="fixed inset-0 overflow-hidden z-20">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="fixed inset-y-0 left-0 flex max-w-full">
-              <Dialog.Panel className="flex h-full flex-col bg-black shadow-xl border-r border-gray-600 w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700">
-                <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                  <div className="flex items-start justify-between">
-                    <Dialog.Title className="text-xl font-bold capitalize bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">
-                      yunus abbas opeyemi
-                    </Dialog.Title>
-                    <div className="ml-3 flex h-7 items-center">
-                      <button
-                        onClick={() => setOpen((prev) => !prev)}
-                        className="h-10 w-10 flex items-center justify-center absolute right-4 top-4 text-gray-100"
-                      >
-                        <span className="sr-only">Close panel</span>
-                        <FontAwesomeIcon icon={faClose} className="h-5" strokeWidth={1.5} />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="mt-6 flow-root">
-                    <div className="divide-y divide-gray-600 space-y-2">
-                      <motion.ul
-                        variants={listContainer}
-                        initial="hidden"
-                        animate="visible"
-                        className="flex flex-col gap-y-4 sm:gap-y-6"
-                      >
-                        {routes.map((_route, index) => (
-                          <motion.li
-                            key={_route.title}
-                            initial="hidden"
-                            animate="visible"
-                            variants={{ ...listItem(index) }}
-                            onClick={() => {
-                              handleScroll(_route.to.split("#")[1]);
-                              setOpen(false);
-                            }}
-                          >
-                            <Link
-                              to={_route.to}
-                              className="text-gray-100 font-medium capitalize text-sm rounded px-3 py-1.5 hover:text-gray-100 hover:bg-white/20"
-                            >
-                              {_route.title}
-                            </Link>
-                          </motion.li>
-                        ))}
-                      </motion.ul>
-                      <Link to="mailto:abbasopeyemi148@gmail.com" className="block py-3">
-                        <button className="text-base font-normal text-white px-4 w-full py-1.5 flex ring-1 ring-gray-600 rounded items-center">
-                          <span className="h-6 w-6 inline-block rounded-full relative before:h-3 before:w-3 before:bg-green-500 before:rounded-full bg-green-600 loader"></span>
-                          let's work
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </Dialog.Panel>
+            onClick={() => scrollTo('hero')}
+            type='button'
+            className='flex items-center gap-2 group shrink-0'>
+            <div className='w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center'>
+              <span className='font-mono text-xs font-bold text-white'>YA</span>
             </div>
+            <span className='text-sm font-semibold text-white/80 group-hover:text-white transition-colors hidden sm:block'>
+              Yunus Abbas
+            </span>
+          </button>
+
+          {/* Desktop links */}
+          <ul className='hidden md:flex items-center gap-1'>
+            {routes.map((r) => (
+              <li key={r.title}>
+                <button
+                  type='button'
+                  onClick={() => scrollTo(r.to.slice(1))}
+                  className={`relative px-4 py-1.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                    active === r.to.slice(1) ? 'text-white' : 'text-white/45 hover:text-white/75'
+                  }`}>
+                  {active === r.to.slice(1) && (
+                    <motion.span
+                      layoutId='nav-active'
+                      className='absolute inset-0 bg-white/8 rounded-full border border-white/10'
+                      transition={{ type: 'spring', duration: 0.4 }}
+                    />
+                  )}
+                  <span className='relative'>{r.title}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA + Hamburger */}
+          <div className='flex items-center gap-3'>
+            <Link to='mailto:abbasopeyemi148@gmail.com' className='hidden md:flex'>
+              <button
+                type='button'
+                className='btn-primary flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white'>
+                <span>Hire me</span>
+              </button>
+            </Link>
+
+            {/* Mobile hamburger */}
+            <button
+              type='button'
+              onClick={() => setOpen(true)}
+              className='md:hidden flex item-center justify-center p-2 text-white/40 hover:text-white transition-colors'
+              aria-label='Open menu'>
+              <FontAwesomeIcon icon={faBars} />
+            </button>
           </div>
-        </div>
-      </Dialog>
-    </Disclosure>
+        </nav>
+      </motion.header>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm'
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+              className='fixed right-0 top-0 bottom-0 z-[70] w-72 bg-[#08080f] flex flex-col p-6'>
+              <div className='flex items-center justify-between mb-10'>
+                <div className='flex items-center gap-2'>
+                  <div className='w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center'>
+                    <span className='font-mono text-xs font-bold text-white'>YA</span>
+                  </div>
+                  <span className='text-sm font-semibold text-white/80'>Yunus Abbas</span>
+                </div>
+                <button
+                  type='button'
+                  aria-label='Close menu'
+                  onClick={() => setOpen(false)}
+                  className='p-2 text-white/40 hover:text-white transition-colors'>
+                  <FontAwesomeIcon icon={faClose} />
+                </button>
+              </div>
+
+              <nav className='flex flex-col gap-1'>
+                {routes.map((r, i) => (
+                  <motion.button
+                    key={r.title}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.07 }}
+                    onClick={() => {
+                      scrollTo(r.to.slice(1));
+                      setOpen(false);
+                    }}
+                    className={`text-left px-4 py-3 rounded-xl text-sm font-medium capitalize transition-all ${
+                      active === r.to.slice(1)
+                        ? 'bg-violet-600/15 text-violet-300 border border-violet-500/20'
+                        : 'text-white/50 hover:text-white hover:bg-white/5'
+                    }`}>
+                    {r.title}
+                  </motion.button>
+                ))}
+              </nav>
+
+              <div className='mt-auto'>
+                <Link
+                  to='mailto:abbasopeyemi148@gmail.com'
+                  onClick={() => setOpen(false)}
+                  className='block'>
+                  <button
+                    type='button'
+                    className='btn-primary w-full py-3 rounded-xl text-sm font-medium text-white flex items-center justify-center gap-2'>
+                    <div className='pulse-dot' />
+                    Let's work together
+                  </button>
+                </Link>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };

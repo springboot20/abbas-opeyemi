@@ -1,148 +1,159 @@
-import { Link } from "react-router-dom";
-import data from "../../data/data.json";
-import { SlideIn } from "../slide-in";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { teckstacks } from "../../data/techstacks";
-import { useEffect, useRef } from "react";
+import { useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import data from '../../data/data.json';
+import ProjectPreview from '../preview/project-preview';
 
-export default function Projects() {
-  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+const GitHubIcon = () => (
+  <svg viewBox='0 0 24 24' className='w-4 h-4 fill-current'>
+    <path d='M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z' />
+  </svg>
+);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      projectRefs.current.forEach((element) => {
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          const windowHeight = window.innerHeight;
+const ExternalIcon = () => (
+  <svg
+    viewBox='0 0 24 24'
+    className='w-3.5 h-3.5'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth={2}>
+    <path
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
+    />
+  </svg>
+);
 
-          // Calculate how far the element is from the center of the viewport
-          const distanceFromCenter = Math.abs(rect.top + rect.height / 2 - windowHeight / 2);
+function ProjectCard({ item, index }: { item: (typeof data)[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const opacity = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
 
-          // Calculate a scale factor between 0.8 and 1.0 based on distance from center
-          // The closer to the center, the closer to 1.0
-          const maxDistance = windowHeight * 0.7;
-          const scaleFactor = 1 - (Math.min(distanceFromCenter, maxDistance) / maxDistance) * 0.2;
-
-          // Apply the scale transformation
-          element.style.transform = `scale(${scaleFactor})`;
-
-          // Apply some opacity change for additional effect
-          element.style.opacity = `${0.7 + scaleFactor * 0.3}`;
-
-          // Smooth transition for both transform and opacity
-          element.style.transition = "transform 0.3s ease, opacity 0.3s ease";
-        }
-      });
-    };
-
-    // Fix the typo: "scoll" -> "scroll"
-    window.addEventListener("scroll", handleScroll);
-
-    // Initial call to set the starting positions
-    handleScroll();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const scale = useTransform(scrollYProgress, [0, 0.15, 1], [0.95, 1, 0.98]);
+  const y = useTransform(scrollYProgress, [0, 0.15], [40, 0]);
 
   return (
-    <SlideIn direction="left">
-      <section id="projects">
-        <div className="max-w-7xl mx-auto px-2">
-          <header className="text-center mb-5">
-            <h3 className="text-3xl capitalize font-medium bg-gradient-to-l from-indigo-700 to-red-500 bg-clip-text text-transparent">
-              projects
+    <motion.div
+      ref={ref}
+      className='sticky project-card'
+      style={{
+        top: `${80 + index * 24}px`,
+        opacity,
+        y,
+        scale,
+      }}>
+      {/* Card inner */}
+      <div className='p-6 sm:p-8'>
+        {/* Header */}
+        <div className='flex items-start justify-between gap-4 mb-6'>
+          <div>
+            <div className='flex items-center gap-2 mb-2'>
+              <span className='text-xs font-mono text-white/20'>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span className='w-4 h-px bg-white/15' />
+              <span className='text-xs font-mono text-violet-400'>{item['tech-stack'][0]}</span>
+            </div>
+            <h3 className='text-lg sm:text-xl font-semibold text-white/90 leading-snug'>
+              {item['project-title']}
             </h3>
-            <p className="text-base font-normal text-gray-500 mt-1">
-              A testament to <span className="text-white">creativity</span> and{" "}
-              <span className="text-white">technical prowess </span>, these showcase{" "}
-              <span className="text-white">my learning </span> and
-              <span className="text-white">experience</span> roadmap.
-            </p>
-          </header>
+          </div>
 
-          <div className="relative w-full max-w-full grid grid-cols-1 gap-5">
-            {data.map((item, index) => (
-              <div
-                id={`project-${index}`}
-                ref={(el) => (projectRefs.current[index] = el)}
-                style={{
-                  top: `calc(96px + ${index * 40}px)`,
-                  height: "auto",
-                }}
-                className="border border-gray-600 rounded-2xl w-full sticky p-4 bg-black/20 backdrop-blur-md"
-                key={`project-${index}`}
-              >
-                <header className="flex items-center justify-between">
-                  <h1 className="text-base font-medium text-gray-300">{`${index + 1} | ${
-                    item["project-title"]
-                  }`}</h1>
-
-                  <Link to={item["github-url"]}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 496 512"
-                      className="w-8 h-8 fill-purple-600 stroke-none"
-                    >
-                      <path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z" />
-                    </svg>
-                  </Link>
-                </header>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 mt-3 py-2 gap-4">
-                  <div className="col-span-1 overflow-hidden rounded-xl">
-                    <img src={item.image} alt={item.alt} />
-                  </div>
-                  <div className="col-span-1 space-y-2">
-                    <div className="space-y-2">
-                      <h3 className="text-gray-300 font-medium text-xl">{item["project-title"]}</h3>
-                      <p className="text-gray-300 text-justify text-sm font-normal">
-                        {item["project-description"]}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center w-full gap-2">
-                      {teckstacks.map((s) => {
-                        if (item["tech-stack"].includes(s.name)) return s.logo;
-                      })}
-                    </div>
-
-                    <div className="">
-                      <Link
-                        to={item.url}
-                        target="__blank__"
-                        className="text-gray-300 font-normal capitalize"
-                      >
-                        <span>live preview :</span>
-                        <motion.span
-                          initial={{
-                            x: 0,
-                          }}
-                          animate={{
-                            x: 10,
-                            transition: {
-                              repeat: Infinity,
-                              repeatType: "loop",
-                              delay: 2.4,
-                            },
-                          }}
-                          className="inline-flex items-center"
-                        >
-                          <FontAwesomeIcon
-                            icon={faArrowRight}
-                            className="h-2 stroke-[1px] text-xl"
-                          />
-                        </motion.span>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+          <div className='flex items-center gap-2 shrink-0'>
+            <Link
+              to={item['github-url']}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='cursor-pointer'>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className='flex items-center gap-1.5 px-3 py-2 rounded-xl glass-card text-white/40 hover:text-white text-xs transition-colors'>
+                <GitHubIcon />
+                <span className='hidden sm:block'>Code</span>
+              </motion.button>
+            </Link>
+            <Link
+              to={item.url}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='cursor-pointer'>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className='flex items-center gap-1.5 px-3 py-2 rounded-xl bg-violet-600/80 hover:bg-violet-600 text-white text-xs font-medium transition-colors'>
+                <ExternalIcon />
+                <span className='hidden sm:block'>Open Site</span>
+              </motion.button>
+            </Link>
           </div>
         </div>
-      </section>
-    </SlideIn>
+
+        {/* Image + description grid */}
+        <div className='grid grid-cols-1 lg:grid-cols-5 gap-6'>
+          {/* Image */}
+          <div className='lg:col-span-3 overflow-hidden rounded-xl aspect-video bg-white/5 border border-white/5'>
+            <ProjectPreview
+              url={item.url}
+              image={item.image}
+              alt={item.alt}
+              title={item['project-title']}
+            />
+          </div>
+
+          {/* Description */}
+          <div className='lg:col-span-2 flex flex-col justify-between lg:max-h-[100px] gap-4'>
+            <p className='text-sm text-white/40 leading-relaxed'>
+              {item['project-description'].slice(0, 200)}
+              {item['project-description'].length > 200 && '…'}
+            </p>
+
+            {/* Tech stack tags */}
+            <div className='flex flex-wrap gap-2'>
+              {item['tech-stack'].map((tech) => (
+                <span key={tech} className='tech-tag'>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Projects() {
+  return (
+    <section id='projects' className='relative py-32 px-4'>
+      <div className='max-w-5xl mx-auto'>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className='mb-20'>
+          <span className='section-label mb-4 inline-flex'>
+            <span className='font-mono'>03</span> Projects
+          </span>
+          <h2 className='text-4xl sm:text-5xl font-semibold text-white/90 mt-4 mb-4 tracking-tight'>
+            Selected <span className='grad-text'>work</span>
+          </h2>
+          <p className='text-white/35 text-base max-w-md leading-relaxed'>
+            A showcase of projects that reflect my journey — full-stack builds, design systems, and
+            production applications.
+          </p>
+        </motion.div>
+
+        {/* Sticky project cards */}
+        <div className='flex flex-col gap-6'>
+          {data.map((item, idx) => (
+            <ProjectCard key={idx} item={item} index={idx} />
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

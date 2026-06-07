@@ -7,7 +7,7 @@ dotenv.config();
 const isProduction = process.env.VITE_NODE_ENV === 'production';
 
 const config = {
-  baseUrl: isProduction ? 'https://abbasopeyemi.vercel.app/' : 'http://localhost:3002',
+  baseUrl: isProduction ? 'https://abbasopeyemi.vercel.app' : 'http://localhost:3002',
   outputPath: './public/sitemap.xml',
   routes: [
     {

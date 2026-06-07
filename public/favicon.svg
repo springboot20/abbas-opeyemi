@@ -1,0 +1,31 @@
+<svg
+  width="120"
+  height="120"
+  viewBox="0 0 120 120"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Cyan accent -->
+  <circle
+    cx="60"
+    cy="28"
+    r="5"
+    fill="#06B6D4"
+  />
+
+  <path
+    d="M60 60V88"
+    stroke="#F1F0F7"
+    stroke-width="8"
+    stroke-linecap="round"
+  />
+  
+  <!-- Y Symbol -->
+  <path
+    d="M38 38L60 60L82 38"
+    stroke="#7C3AED"
+    stroke-width="8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

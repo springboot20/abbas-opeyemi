@@ -66,8 +66,26 @@ export const Navigation: React.FC = () => {
             onClick={() => scrollTo('hero')}
             type='button'
             className='flex items-center gap-2 group shrink-0'>
-            <div className='w-7 h-7 rounded-lg bg-violet-600 flex items-center justify-center'>
-              <span className='font-mono text-xs font-bold text-white'>YA</span>
+            <div className='w-10 h-10 rounded-lg flex items-center justify-center'>
+              <svg
+                width='120'
+                height='120'
+                viewBox='0 0 120 120'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'>
+                <circle cx='60' cy='28' r='5' fill='#06B6D4' />
+                
+                <path d='M60 60V88' stroke='#F1F0F7' strokeWidth='8' strokeLinecap='round' />
+
+                <path
+                  d='M38 38L60 60L82 38'
+                  stroke='#7C3AED'
+                  strokeWidth='8'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                />
+
+              </svg>
             </div>
             <span className='text-sm font-semibold text-white/80 group-hover:text-white transition-colors hidden sm:block'>
               Yunus Abbas
